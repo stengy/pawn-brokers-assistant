@@ -5,7 +5,10 @@ class Loan extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {value: ''};
+    this.state = {
+      value: ''
+    };
+   
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -13,6 +16,7 @@ class Loan extends React.Component {
   handleChange(event) {
     this.setState({value: event.target.value});
   }
+
 
 
   // This fires off when I hit submit. The goal is to add the necessary logic to populate the screen with accurate numbers. This will take a bit but most of the logic has been recycled from the other repo.
@@ -28,7 +32,7 @@ class Loan extends React.Component {
     // Defining essential variables for later use
     let storage = 5;
     let lateFee = 10;
-    let firearmFee = 5;
+    // let firearmFee = 5;
     let missingTicketFee = 5;
     
     // Defining booleans for selector functionality.
@@ -60,6 +64,13 @@ class Loan extends React.Component {
       } else {
         return true;
       }
+    };
+
+    function firearmValidate(){
+      if(firearm === 'Yes'){
+        return true;}
+      else {
+        return false;}
     };
 
     // This funtion takes in the amount and determines both the Interest Rate and Processing Fee. This is based of the RCW information.
@@ -137,7 +148,7 @@ class Loan extends React.Component {
     
     let rates = function(){
       // These set the costs for the 30 day periods.
-      let first = Number(amount) + Number(interest) + Number(processing) + Number(storage);
+      let first = Number(amount) + Number(interest) + Number(processing) + Number(storage) + Number(firearmFee);
       let second = first + Number(interest) + Number(storage);
       let third = second + Number(interest) + Number(storage);
       let late = third + Number(interest) + Number(storage) + Number(lateFee);
@@ -177,6 +188,7 @@ class Loan extends React.Component {
       if(loanValidate() === false){
         console.log('Borked');
       } else {
+        firearmValidate();
         processingInterest(amount);
         rates();
         postNumbers();
@@ -206,10 +218,10 @@ class Loan extends React.Component {
           </label>
           <br />
           <label>Is the item on loan a Firearm?{' '}
-            <select id="loanFirearm" className="loanSelect">
-              <option>---</option>
-              <option>Yes</option>
-              <option>No</option>
+            <select id="loanFirearm" className="loanSelect" value={this.state.isFirearm} onChange={this.handleFirearm}>
+              <option value="---">---</option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
             </select>
           </label>
           <br />
