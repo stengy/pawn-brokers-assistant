@@ -68,21 +68,38 @@ class Loan extends React.Component {
       }
     };
 
+    // This function validates firearm selector
+
     let firearmValidate = function () {
+
+      // These grab the firearm selector element options
 
       let gun = document.getElementById('loanFirearm');
       let i = gun.selectedIndex;
+
+      // This if statement verifies which option is selected and applies appropriate values
       
       if(gun.options[i].text === 'Yes'){
         let isFirearm = true;
+
         firearmFee = 5;
         firearmStorage = 5;
+
+        // Storing the above variables in an array to easily return both
+        
         firearmData = [firearmFee, firearmStorage];
+
         return firearmData;
+
       } else {
+
         firearmFee = 0;
         firearmStorage = 0;
+
+        // Storing the above variables in an array to easily return both
+
         firearmData = [firearmFee, firearmStorage];
+
         return firearmData;
       }
     };
