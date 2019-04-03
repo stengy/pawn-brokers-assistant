@@ -33,6 +33,8 @@ class Loan extends React.Component {
     let storage = 5;
     let lateFee = 10;
     let firearmFee;
+    let firearmData;
+    let firearmStorage;
     let missingTicketFee = 5;
     
     // Defining booleans for selector functionality.
@@ -74,10 +76,14 @@ class Loan extends React.Component {
       if(gun.options[i].text === 'Yes'){
         let isFirearm = true;
         firearmFee = 5;
-        return firearmFee;
+        firearmStorage = 5;
+        firearmData = [firearmFee, firearmStorage];
+        return firearmData;
       } else {
         firearmFee = 0;
-        return firearmFee;
+        firearmStorage = 0;
+        firearmData = [firearmFee, firearmStorage];
+        return firearmData;
       }
     };
     
@@ -181,11 +187,13 @@ class Loan extends React.Component {
       //Grabs the text in the blocks
       let amountBlock = document.getElementById('loanOneRate');
       let storageBlock = document.getElementById('storageRate');
+      let firearmBlock = document.getElementById('firearmRate');
       let interestBlock = document.getElementById('interestRate');
       let processingBlock = document.getElementById('processingRate');
       // Places the amounts into the blocks.
       amountBlock.innerHTML = '$' + Number(amount).toFixed(2);
       storageBlock.innerHTML = '$' + Number(storage).toFixed(2);
+      firearmBlock.innerHTML = '$' + Number(firearmStorage).toFixed(2);
       interestBlock.innerHTML = '$' + Number(interest).toFixed(2);
       processingBlock.innerHTML = '$' + Number(processing).toFixed(2);
     }
