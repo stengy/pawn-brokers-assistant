@@ -28,16 +28,16 @@ class Loan extends React.Component {
     //This sets the base amount to a localized variable. Handy for later. Assigned by the input field.
 
     let amount = this.state.value;
-
+    console.log(amount);
     // Defining essential variables for later use
     let storage = 5;
     let lateFee = 10;
-    // let firearmFee = 5;
+    let firearmFee;
     let missingTicketFee = 5;
     
     // Defining booleans for selector functionality.
 
-    let firearm = false;
+    let isFirearm = false;
     let missingTicket = false;
 
     // Boolean for later user Info.
@@ -66,13 +66,21 @@ class Loan extends React.Component {
       }
     };
 
-    function firearmValidate(){
-      if(firearm === 'Yes'){
-        return true;}
-      else {
-        return false;}
-    };
+    let firearmValidate = function () {
 
+      let gun = document.getElementById('loanFirearm');
+      let i = gun.selectedIndex;
+      
+      if(gun.options[i].text === 'Yes'){
+        let isFirearm = true;
+        firearmFee = 5;
+        return firearmFee;
+      } else {
+        firearmFee = 0;
+        return firearmFee;
+      }
+    };
+    
     // This funtion takes in the amount and determines both the Interest Rate and Processing Fee. This is based of the RCW information.
 
     let processingInterest = function(amount){
@@ -218,10 +226,10 @@ class Loan extends React.Component {
           </label>
           <br />
           <label>Is the item on loan a Firearm?{' '}
-            <select id="loanFirearm" className="loanSelect" value={this.state.isFirearm} onChange={this.handleFirearm}>
-              <option value="---">---</option>
-              <option value="yes">Yes</option>
-              <option value="no">No</option>
+            <select id="loanFirearm" className="loanSelect" >
+              <option>---</option>
+              <option>Yes</option>
+              <option>No</option>
             </select>
           </label>
           <br />
